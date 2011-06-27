@@ -3,10 +3,11 @@
 using Terraria_Server;
 using Terraria_Server.Plugin;
 
+/* LWC-Terraria for TDSM (tdsm.org) */
 namespace LWC
 {
-	public class LWCPlugin : Plugin
-	{
+    public class LWCPlugin : Plugin
+    {
 
         /* If LWC is enabled */
         private bool enabled = false;
@@ -22,7 +23,6 @@ namespace LWC
             Description = "Chest protection mod";
             Author = "Hidendra";
             Version = "1.00-dev";
-            TDSMBuild = 9;
             
         }
 
@@ -63,7 +63,7 @@ namespace LWC
 
             if(command.Equals("/cpublic"))
             {
-                player.sendMessage("Hello!");
+                // player.sendMessage("Hello!");
             }
         }
 
@@ -74,6 +74,8 @@ namespace LWC
 
         public override void onTileBreak(Terraria_Server.Events.TileBreakEvent Event)
         {
+			Tile tile = Event.getTile();
+			
             base.onTileBreak(Event);
         }
 
