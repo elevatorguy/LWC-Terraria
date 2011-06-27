@@ -9,7 +9,7 @@ namespace LWC
 	{
 
         /* If LWC is enabled */
-	    private bool enabled = false;
+        private bool enabled = false;
 
         private void Log(string message)
         {
