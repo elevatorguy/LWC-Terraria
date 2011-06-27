@@ -8,9 +8,7 @@ namespace LWC
 	public class LWCPlugin : Plugin
 	{
 
-        /**
-         * If LWC is enabled
-         */
+        /* If LWC is enabled */
 	    private bool enabled = false;
 
         private void Log(string message)
