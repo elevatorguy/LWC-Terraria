@@ -15,13 +15,21 @@ namespace LWC
 		public const int PASSWORD_PROTECTION = 1;
 		
 		// Private protection constant
-		private const int PRIVATE_PROTECTION = 2;
+		public const int PRIVATE_PROTECTION = 2;
+		
+		/**
+		 * The internal chest id
+		 */
+		public int ChestId { get; set; }
 
 		/**
 		 * The player that owners the protection
 		 */
 		public string Owner { get; set; }
 		
+		/**
+		 * Protection data such as a password
+		 */
 		public string Data { get; set; }
 		
 		/**
@@ -44,9 +52,102 @@ namespace LWC
 		 */
 		public List<string> Access { get; private set; }
 		
+		/**
+		 * If the protection is valid and correctly created in the world
+		 */
+		public bool Valid { get; set; }
+		
 		public Protection()
 		{
 			Access = new List<string>();
+		}
+		
+		/**
+		 * Remove the protection
+		 */
+		public void Remove()
+		{
+			if(!Valid)
+			{
+				return;
+			}
+			
+			LWCPlugin.Get().Cache.Protections.Remove(new LocationKey(X, Y));
+		}
+		
+		/**
+		 * Check if a player can access the protection
+		 * 
+		 * @param player
+		 * @return true if the player can access the protection
+		 */
+		public bool CanAccess(Player player)
+		{
+			string playerName = player.getName();
+			
+			if(IsOwner(player))
+			{
+				return true;
+			}
+			
+			switch(Type)
+			{
+				case PUBLIC_PROTECTION:
+					return true;
+				
+				case PRIVATE_PROTECTION:
+				case PASSWORD_PROTECTION:
+					if(Access.Contains(playerName))
+					{
+						return true;
+					}
+					break;
+					
+			}
+			
+			return false;
+		}
+		
+		/**
+		 * If the player is an Op, they are considered an owner!
+		 * 
+		 * @param player
+		 * @return true if the player is considered an owner
+		 */
+		public bool IsOwner(Player player)
+		{
+			if(Owner.Equals(player.getName()))
+			{
+				return true;
+			}
+			
+			if(player.isInOpList())
+			{
+				return true;
+			}
+			
+			return false;
+		}
+		
+		/**
+		 * @return a textual representation of the protection type
+		 */
+		public string TypeToString()
+		{
+			switch(Type)
+			{
+				case PUBLIC_PROTECTION:
+					return "Public";
+					
+				case PASSWORD_PROTECTION:
+					return "Password";
+					
+				case PRIVATE_PROTECTION:
+					return "Private";
+					
+				default:
+					return "Unknown type (" + Type + ")";
+			}
 		}
 		
 		/**
@@ -62,9 +163,7 @@ namespace LWC
 				return null;
 			}
 			
-			LocationKey key = new LocationKey(tile.tileX, tile.tileY);
-			
-			return LWCPlugin.Get().Cache.Protections[key];
+			return LWCPlugin.Get().Cache.Protections.Get(new LocationKey(tile.tileX, tile.tileY));
 		}
 		
 		/**

@@ -27,7 +27,12 @@ namespace LWC
 		/**
 		 * Unlock a locked password protection
 		 */
-		UNLOCK
+		UNLOCK,
+		
+		/**
+		 * Used to compute the answer to the ultimate question of life
+		 */
+		NOTHING
 		
 	}
 }

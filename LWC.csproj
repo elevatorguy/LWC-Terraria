@@ -51,15 +51,18 @@
     <Compile Include="IO\FlatFileProtectionSaver.cs" />
     <Compile Include="IO\ProtectionLoader.cs" />
     <Compile Include="IO\ProtectionSaver.cs" />
+    <Compile Include="DictionaryExtension.cs" />
     <Compile Include="LocationKey.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="LWCPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protection.cs" />
+    <Compile Include="Util\SHA1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IO" />
+    <Folder Include="Util" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

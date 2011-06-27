@@ -10,7 +10,7 @@ namespace LWC
 	{
 		
 		/**
-		 * The cache of the currently loaded protections
+		 * The cache of the currently loaded protections.
 		 */
 		public Dictionary<LocationKey, Protection> Protections { get; private set; }
 		
