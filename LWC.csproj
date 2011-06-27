@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protection.cs" />
     <Compile Include="Util\SHA1.cs" />
+    <None Include="IO\FlatFileFormat.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IO" />

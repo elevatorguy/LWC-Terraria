@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2010
-# SharpDevelop 4.0.0.6768
+# Visual Studio 2008
+# SharpDevelop 3.2.1.6466
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LWC", "LWC.csproj", "{6E866C68-BC64-49B4-AE8D-5E9A94143B1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terraria_Server", "..\TDSM\Terraria_Server\Terraria_Server.csproj", "{6B42E70C-75CD-410B-9D4A-3EA75B6F5176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,5 +16,9 @@ Global
 		{6E866C68-BC64-49B4-AE8D-5E9A94143B1E}.Debug|x86.ActiveCfg = Debug|x86
 		{6E866C68-BC64-49B4-AE8D-5E9A94143B1E}.Release|x86.Build.0 = Release|x86
 		{6E866C68-BC64-49B4-AE8D-5E9A94143B1E}.Release|x86.ActiveCfg = Release|x86
+		{6B42E70C-75CD-410B-9D4A-3EA75B6F5176}.Debug|x86.Build.0 = Debug|x86
+		{6B42E70C-75CD-410B-9D4A-3EA75B6F5176}.Debug|x86.ActiveCfg = Debug|x86
+		{6B42E70C-75CD-410B-9D4A-3EA75B6F5176}.Release|x86.Build.0 = Release|x86
+		{6B42E70C-75CD-410B-9D4A-3EA75B6F5176}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 EndGlobal

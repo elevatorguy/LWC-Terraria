@@ -76,6 +76,26 @@ namespace LWC
 		}
 		
 		/**
+		 * Convert the access list to a comma-delimited list
+		 */
+		public string AccessToString()
+		{
+			string access = "";
+			
+			foreach(string temp in Access)
+			{
+				access += temp + ",";
+			}
+			
+			if(Access.Count > 0)
+			{
+				access = access.Substring(0, access.Length - 1);
+			}
+			
+			return access;
+		}
+		
+		/**
 		 * Check if a player can access the protection
 		 * 
 		 * @param player

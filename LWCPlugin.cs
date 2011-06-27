@@ -34,6 +34,11 @@ namespace LWC
 		 * The LWCPlugin instance loaded
 		 */
 		private static LWCPlugin instance = null;
+		
+		/**
+		 * The folder to save files in
+		 */
+		public static string Folder = "";
 
 		public LWCPlugin()
 		{
@@ -56,6 +61,16 @@ namespace LWC
 			Description = "Chest protection mod";
 			Author = "Hidendra";
 			Version = "1.00-dev";
+			TDSMBuild = 12;
+			
+			// create the LWC dir if needed
+			Folder = Statics.getPluginPath + Statics.systemSeperator + "LWC/";
+			
+			if(!Program.createDirectory(Folder, true))
+			{
+				Log("Failed to create required LWC directory: " + Folder);
+				return;
+			}
 			
 			// default loader/saver for now
 			Loader = new FlatFileProtectionLoader();
@@ -64,7 +79,7 @@ namespace LWC
 			// fire up them cache
 			Cache = new Store();
 			
-			Log("Synching protections....");
+			Log("Syncing protections");
 			
 			// and now load the protections
 			foreach(Protection protection in Loader.LoadProtections())
@@ -72,7 +87,7 @@ namespace LWC
 				Cache.Protections.Add(new LocationKey(protection.X, protection.Y), protection);
 			}
 			
-			Log("Loaded " + Cache.Protections.Count + " protections.");
+			Log("Loaded " + Cache.Protections.Count + " protections!");
 		}
 
 		public override void Enable()
@@ -87,8 +102,10 @@ namespace LWC
 
 		public override void Disable()
 		{
-			Log("Desynching protections....");
+			Log("Desyncing protections");
 			
+			try
+			{
 			// save the protections
 			Protection[] protections = new Protection[Cache.Protections.Count];
 			
@@ -96,6 +113,12 @@ namespace LWC
 			{
 				Cache.Protections.Values.CopyTo(protections, 0);
 				Saver.SaveProtections(protections);
+			}
+			} catch(Exception exception)
+			{
+				Log("Exception occured! " + exception.Message);
+				Log(exception.StackTrace);
+				Log(exception.ToString());
 			}
 			
 			enabled = false;
@@ -164,7 +187,7 @@ namespace LWC
 					
 					if(args.Length == 1)
 					{
-						player.sendMessage("Usage: /cprivate <password>", 255, 255, 0, 0);
+						player.sendMessage("Usage: /cpassword <password>", 255, 255, 0, 0);
 						break;
 					}
 					
@@ -288,6 +311,12 @@ namespace LWC
 						player.sendMessage("Type /cunlock <password> to unlock it.", 150, 255, 0, 0);
 					}
 				}
+				
+				// Update the chest id if it changed somehow
+				if(protection.ChestId != ChestId)
+				{
+					protection.ChestId = ChestId;
+				}
 			}
 			
 			// if they can't access it, cancel the event !!
@@ -388,7 +417,7 @@ namespace LWC
 			return instance;
 		}
 
-		private void Log(string message)
+		public void Log(string message)
 		{
 			Program.tConsole.WriteLine("[LWC] " + message);
 		}

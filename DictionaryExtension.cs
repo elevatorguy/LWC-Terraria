@@ -12,7 +12,6 @@ namespace LWC
 			dictionary.TryGetValue(key, out value);
 			return value;
 		}
-
 		
 	}
 }
