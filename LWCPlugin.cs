@@ -106,18 +106,17 @@ namespace LWC
 			
 			try
 			{
-			// save the protections
-			Protection[] protections = new Protection[Cache.Protections.Count];
-			
-			if(protections.Length > 0)
-			{
-				Cache.Protections.Values.CopyTo(protections, 0);
-				Saver.SaveProtections(protections);
-			}
+				// save the protections
+				Protection[] protections = new Protection[Cache.Protections.Count];
+				
+				if(protections.Length > 0)
+				{
+					Cache.Protections.Values.CopyTo(protections, 0);
+					Saver.SaveProtections(protections);
+				}
 			} catch(Exception exception)
 			{
 				Log("Exception occured! " + exception.Message);
-				Log(exception.StackTrace);
 				Log(exception.ToString());
 			}
 			
@@ -417,7 +416,7 @@ namespace LWC
 			return instance;
 		}
 
-		public void Log(string message)
+		public static void Log(string message)
 		{
 			Program.tConsole.WriteLine("[LWC] " + message);
 		}

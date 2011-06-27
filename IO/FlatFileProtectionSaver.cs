@@ -17,16 +17,20 @@ namespace LWC.IO
 			string database = LWCPlugin.Folder + "lwc.db";
 			string backup = LWCPlugin.Folder + "lwc.db.bak";
 			
-			FileInfo fileInfo = new FileInfo(@database);
+			// ensure a dirty backup does not exist
+			if(File.Exists(backup))
+			{
+				File.Delete(backup);
+			}
 			
 			// move the old lwc db if it exists
-			if(File.Exists(@database))
+			if(File.Exists(database))
 			{
-				fileInfo.MoveTo(@backup);
+				File.Move(database, backup);
 			}
 			
 			// now save the protections
-			StreamWriter stream = fileInfo.CreateText();
+			StreamWriter stream = File.CreateText(database);
 			
 			foreach(Protection protection in protections)
 			{
@@ -45,10 +49,9 @@ namespace LWC.IO
 			stream.Close();
 			
 			// everything seems ok, let's delete the backup
-			if(File.Exists(@backup))
+			if(File.Exists(backup))
 			{
-				FileInfo backupInfo = new FileInfo(@backup);
-				backupInfo.Delete();
+				File.Delete(backup);
 			}
 		}
 		
