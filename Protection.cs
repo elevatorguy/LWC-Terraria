@@ -6,47 +6,43 @@ using Terraria_Server;
 
 namespace LWC
 {
-	class Protection
+	public class Protection
 	{
-		/**
-		 * Public protection constant
-		 */
+		// Public protection constant
 		public const int PUBLIC_PROTECTION = 0;
 		
-		/**
-		 * Password protection constant
-		 */
+		// Password protection constant
 		public const int PASSWORD_PROTECTION = 1;
 		
-		/**
-		 * Private protection constant
-		 */
+		// Private protection constant
 		private const int PRIVATE_PROTECTION = 2;
 
 		/**
 		 * The player that owners the protection
 		 */
-		private string Owner { get; set; }
+		public string Owner { get; set; }
+		
+		public string Data { get; set; }
 		
 		/**
 		 * The protection type
 		 */
-		private int Type { get; set; }
+		public int Type { get; set; }
 		
 		/**
 		 * The protection's x coordinate
 		 */
-		private int X { get; set; }
+		public int X { get; set; }
 		
 		/**
 		 * The protection's y coordinate
 		 */
-		private int Y { get; set; }
+		public int Y { get; set; }
 		
 		/**
 		 * The players who can access the protection (besides the owner)
 		 */
-		private List<string> Access { get; private set; }
+		public List<string> Access { get; private set; }
 		
 		public Protection()
 		{
@@ -66,7 +62,9 @@ namespace LWC
 				return null;
 			}
 			
-			return null;
+			LocationKey key = new LocationKey(tile.tileX, tile.tileY);
+			
+			return LWCPlugin.Get().Cache.Protections[key];
 		}
 		
 		/**

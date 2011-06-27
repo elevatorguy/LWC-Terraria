@@ -12,8 +12,18 @@ namespace LWC
 		/**
 		 * The cache of the currently loaded protections
 		 */
-		private Dictionary<LocationKey, Protection> protections = new Dictionary<LocationKey, Protection>();
+		public Dictionary<LocationKey, Protection> Protections { get; private set; }
 		
+		/**
+		 * The "database" of actions players are using
+		 */
+		public Dictionary<string, Pair<Action, Protection>> Actions { get; private set; }
+		
+		public Store()
+		{
+			Protections = new Dictionary<LocationKey, Protection>();
+			Actions = new Dictionary<string, Pair<Action, Protection>>();
+		}
 		
 	}
 }

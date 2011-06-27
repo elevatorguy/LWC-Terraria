@@ -15,6 +15,14 @@ namespace LWC
 		 */
 		public int Y { get; set; }
 		
+		public LocationKey() { }
+		
+		public LocationKey(int X, int Y)
+		{
+			this.X = X;
+			this.Y = Y;
+		}
+		
 		/**
 		 * @return true if the two keys are equal
 		 */

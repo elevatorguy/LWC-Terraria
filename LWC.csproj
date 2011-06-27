@@ -11,6 +11,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\Tyler\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -45,11 +46,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="IO\FlatFileProtectionLoader.cs" />
+    <Compile Include="IO\FlatFileProtectionSaver.cs" />
+    <Compile Include="IO\ProtectionLoader.cs" />
+    <Compile Include="IO\ProtectionSaver.cs" />
     <Compile Include="LocationKey.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="LWCPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IO" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

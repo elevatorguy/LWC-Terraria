@@ -3,20 +3,41 @@
 using Terraria_Server;
 using Terraria_Server.Plugin;
 
+using LWC.IO;
+
 /* LWC-Terraria for TDSM (tdsm.org) */
 namespace LWC
 {
 	public class LWCPlugin : Plugin
 	{
 
-		/* If LWC is enabled */
+		/**
+		 * The object that stores most of what we use
+		 */
+		public Store Cache { get; private set; }
+		
+		/**
+		 * The loader that loads protections
+		 */
+		private ProtectionLoader Loader;
+		
+		/**
+		 * The saver that saves protections
+		 */
+		private ProtectionSaver Saver;
+		
 		private bool enabled = false;
+		
+		/**
+		 * The LWCPlugin instance loaded
+		 */
+		private static LWCPlugin instance = null;
 
-		private void Log(string message)
+		public LWCPlugin()
 		{
-			Program.tConsole.WriteLine("[LWC] " + message);
+			instance = this;
 		}
-
+		
 		public override void Load()
 		{
 			Name = "LWC";
@@ -24,6 +45,24 @@ namespace LWC
 			Author = "Hidendra";
 			Version = "1.00-dev";
 			
+			// default loader/saver for now
+			Loader = new FlatFileProtectionLoader();
+			Saver = new FlatFileProtectionSaver();
+			
+			// fire up them cache
+			Cache = new Store();
+			
+			Log("Synching protections....");
+			
+			// and now load the protections
+			foreach(Protection protection in Loader.LoadProtections())
+			{
+				LocationKey key = new LocationKey(protection.X, protection.Y);
+				
+				Cache.Protections.Add(key, protection);
+			}
+			
+			Log("Loaded " + Cache.Protections.Count + " protections.");
 		}
 
 		public override void Enable()
@@ -34,11 +73,22 @@ namespace LWC
 			registerHook(Hooks.TILE_BREAK);
 
 			enabled = true;
-			Log("LWC has been enabled!");
+			Log("VERSION: " + Version);
 		}
 
 		public override void Disable()
 		{
+			Log("Desynching protections....");
+			
+			// save the protections
+			Protection[] protections = new Protection[Cache.Protections.Count];
+			
+			if(protections.Length > 0)
+			{
+				Cache.Protections.Values.CopyTo(protections, 0);
+				Saver.SaveProtections(protections);
+			}
+			
 			enabled = false;
 			Log("LWC has been disabled!");
 		}
@@ -77,6 +127,16 @@ namespace LWC
 			Tile tile = Event.getTile();
 			
 			base.onTileBreak(Event);
+		}
+		
+		public static LWCPlugin Get()
+		{
+			return instance;
+		}
+
+		private void Log(string message)
+		{
+			Program.tConsole.WriteLine("[LWC] " + message);
 		}
 
 	}
