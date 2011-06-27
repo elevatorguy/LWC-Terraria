@@ -1,0 +1,5 @@
+﻿One protection per line; a protection is defined by:
+
+  ChestId:Owner:Data:Type:x,y:access1,access2,access3.....
+
+ChestId is the internal id for a chest used in Terraria; this id is persisted on each restart.
