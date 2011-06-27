@@ -46,7 +46,7 @@ namespace LWC
 			int hash = 23;
 			
 			hash = (hash * 31) + X.GetHashCode();
-			hash = (hash * 31) + X.GetHashCode();
+			hash = (hash * 31) + Y.GetHashCode();
 			
 			return hash;
 		}
