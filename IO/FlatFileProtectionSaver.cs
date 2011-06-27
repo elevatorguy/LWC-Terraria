@@ -53,26 +53,6 @@ namespace LWC.IO
 		}
 		
 		/**
-		 * Move a file to a different name
-		 */
-		public static void MoveFile(string originalName, string newName)
-        {
-            FileInfo fileInfo = new FileInfo(@originalName);
-            DirectoryInfo dirInfo = null;
-
-            if (!Directory.Exists(@newName))
-            {
-                dirInfo = new DirectoryInfo(@newName);
-                dirInfo.Create();
-            }
-
-            if (File.Exists(@originalName))
-            {
-                fileInfo.MoveTo(newName);
-            }
-        }
-		
-		/**
 		 * Convert a protection to the flatfile format
 		 */
 		public string ConvertProtection(Protection protection)
