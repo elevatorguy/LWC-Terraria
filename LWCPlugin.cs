@@ -68,7 +68,11 @@ namespace LWC
 			
 			// create the LWC dir if needed
 			Folder = Statics.PluginPath + Path.DirectorySeparatorChar + "LWC/";
-			Directory.CreateDirectory(Folder);
+			
+			if(!Directory.Exists(Folder))
+			{
+				Directory.CreateDirectory(Folder);
+			}
 			
 			// default loader/saver for now
 			Loader = new FlatFileProtectionLoader();
