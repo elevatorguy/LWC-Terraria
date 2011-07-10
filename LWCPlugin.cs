@@ -63,7 +63,7 @@ namespace LWC
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.02";
+			Version = "1.03";
 			TDSMBuild = 24;
 			
 			// create the LWC dir if needed
