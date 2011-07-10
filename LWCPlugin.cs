@@ -80,7 +80,7 @@ namespace LWC
 			
 			// fire up them cache
 			Cache = new Store();
-			
+		
 			Log("Syncing protections");
 			
 			// and now load the protections

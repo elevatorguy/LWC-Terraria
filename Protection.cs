@@ -141,7 +141,7 @@ namespace LWC
 				return true;
 			}
 			
-			if(player.isInOpList())
+			if(player.Op)
 			{
 				return true;
 			}
