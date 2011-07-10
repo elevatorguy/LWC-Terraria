@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
 
 using Terraria_Server;
+using Terraria_Server.Events;
 using Terraria_Server.Commands;
 using Terraria_Server.Plugin;
+using Terraria_Server.Shops;
 
 using LWC.IO;
 using LWC.Util;
@@ -60,17 +63,12 @@ namespace LWC
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.00-dev";
-			TDSMBuild = 12;
+			Version = "1.02";
+			TDSMBuild = 24;
 			
 			// create the LWC dir if needed
-			Folder = Statics.getPluginPath + Statics.systemSeperator + "LWC/";
-			
-			if(!Program.createDirectory(Folder, true))
-			{
-				Log("Failed to create required LWC directory: " + Folder);
-				return;
-			}
+			Folder = Statics.PluginPath + Path.DirectorySeparatorChar + "LWC/";
+			Directory.CreateDirectory(Folder);
 			
 			// default loader/saver for now
 			Loader = new FlatFileProtectionLoader();
@@ -132,14 +130,14 @@ namespace LWC
 			}
 
 			// split the args
-			string[] args = Event.getMessage().ToLower().Split(' ');
+			string[] args = Event.Message.ToLower().Split(' ');
 
 			if(args.Length == 0)
 			{
 				return;
 			}
 
-			Player player = Event.getPlayer();
+			Player player = Event.Player;
 			string command = args[0].Trim().Substring(1);
 			string Extra = "";
 			
@@ -163,7 +161,7 @@ namespace LWC
 			{
 				case "cpublic":
 				case "cprivate":
-					Event.setCancelled(true);
+					Event.Cancelled = true;
 					
 					temp = new Protection();
 					temp.Owner = player.getName();
@@ -182,7 +180,7 @@ namespace LWC
 					break;
 					
 				case "cpassword":
-					Event.setCancelled(true);
+					Event.Cancelled = true;
 					
 					if(args.Length == 1)
 					{
@@ -210,7 +208,7 @@ namespace LWC
 					break;
 				
 				case "cunlock":
-					Event.setCancelled(true);
+					Event.Cancelled = true;
 					
 					if(args.Length == 1)
 					{
@@ -247,14 +245,14 @@ namespace LWC
 					break;
 					
 				case "cinfo":
-					Event.setCancelled(true);
+					Event.Cancelled = true;
 					
 					pair.First = Action.INFO;
 					player.sendMessage("Open a chest to view information about it.", 255, 0, 255, 0);
 					break;
 					
 				case "cremove":
-					Event.setCancelled(true);
+					Event.Cancelled = true;
 					
 					pair.First = Action.REMOVE;
 					player.sendMessage("Open a chest to remove a protection you own.", 255, 0, 255, 0);
@@ -269,10 +267,10 @@ namespace LWC
 			}
 		}
 
-		public override void onPlayerOpenChest(Terraria_Server.Events.ChestOpenEvent Event)
+		public override void onPlayerOpenChest(PlayerChestOpenEvent Event)
 		{
-			Sender sender = Event.getSender();
-			int ChestId = Event.getChestID();
+			Sender sender = Event.Sender;
+			int ChestId = Event.ID;
 			
 			if(!(sender is Player))
 			{
@@ -321,7 +319,7 @@ namespace LWC
 			// if they can't access it, cancel the event !!
 			if(!CanAccess)
 			{
-				Event.setCancelled(true);
+				Event.Cancelled = true;
 			}
 			
 			// is there an action for this player?

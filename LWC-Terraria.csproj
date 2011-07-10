@@ -52,7 +52,7 @@
   <ItemGroup>
     <Reference Include="Terraria_Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\c#\TDSM\Terraria_Server\bin\Debug\Terraria_Server.dll</HintPath>
+      <HintPath>..\..\c#\TDSM\Terraria_Server\bin\Debug\Terraria_Server.exe</HintPath>
     </Reference>
     <Reference Include="System.Core" />
   </ItemGroup>
