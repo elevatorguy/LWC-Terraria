@@ -103,7 +103,7 @@ namespace LWC
 		 */
 		public bool CanAccess(Player player)
 		{
-			string playerName = player.getName();
+			string playerName = player.Name;
 			
 			if(IsOwner(player))
 			{
@@ -136,7 +136,7 @@ namespace LWC
 		 */
 		public bool IsOwner(Player player)
 		{
-			if(Owner.Equals(player.getName()))
+			if(Owner.Equals(player.Name))
 			{
 				return true;
 			}
@@ -170,12 +170,17 @@ namespace LWC
 			}
 		}
 		
+		// the following three methods were not even used so they are commented out
+		
 		/**
 		 * Find a protection at a given tile.
-		 * 
+		 * 											****not used so commented out****
 		 * @param tile
 		 * @return Protection object if found, otherwise null
 		 */
+		
+		/** old method
+		
 		public static Protection findProtection(Tile tile)
 		{
 			if(!IsProtectable(tile.type))
@@ -185,18 +190,20 @@ namespace LWC
 			
 			return LWCPlugin.Get().Cache.Protections.Get(new LocationKey(tile.tileX, tile.tileY));
 		}
+		**/
 		
 		/**
 		 * @param id
 		 * @return true if the block is protectable
 		 */
+		/** old method
 		public static bool IsProtectable(int id)
 		{
 			
 			switch(id)
 			{
-					case 48: /* Regular chest */
-					case 306: /* Gold chest */
+					case 48: // Regular chest
+					case 306: // Gold chest
 					return true;
 
 				default:
@@ -204,15 +211,17 @@ namespace LWC
 			}
 
 		}
+		**/
 		
 		/**
 		 * @param tile
 		 * @return true if the tile is protectable
 		 */
-		public static bool IsProtectable(Tile tile)
+		/** old method
+		public static bool IsProtectable(Terraria_Server.Definitions.Tile.TileType tile)
 		{
 			return tile != null ? IsProtectable(tile.type) : false;
 		}
-
+		**/
 	}
 }
