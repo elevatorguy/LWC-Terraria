@@ -1,14 +1,13 @@
 using Terraria_Server;
-using Terraria_Server.Plugin;
-using Terraria_Server.Events;
+using Terraria_Server.Plugins;
 using Terraria_Server.Commands;
 using LWC.Util;
 
 namespace LWC
 {
-	public partial class LWCPlugin : Plugin
+	public partial class LWCPlugin : BasePlugin
 	{
-		void PublicCommand (Server server, ISender sender, ArgumentList argz)
+		void PublicCommand (ISender sender, ArgumentList argz)
 		{
 				Player player = sender as Player;
 				Protection temp = new Protection ();
@@ -29,7 +28,7 @@ namespace LWC
 			}
 		}
 
-		void PrivateCommand (Server server, ISender sender, ArgumentList argz)
+		void PrivateCommand (ISender sender, ArgumentList argz)
 		{
 				Player player = sender as Player;
 				Protection temp = new Protection ();
@@ -50,7 +49,7 @@ namespace LWC
 			}
 		}
 
-		void PasswordCommand (Server server, ISender sender, ArgumentList args)
+		void PasswordCommand (ISender sender, ArgumentList args)
 		{
 				Player player = sender as Player;
 				Protection temp = new Protection ();
@@ -86,7 +85,7 @@ namespace LWC
 			}
 		}
 
-		void UnlockCommand (Server server, ISender sender, ArgumentList args)
+		void UnlockCommand (ISender sender, ArgumentList args)
 		{
 				Player player = sender as Player;
 				Protection temp = new Protection ();
@@ -127,7 +126,7 @@ namespace LWC
 			}
 		}
 
-		void InfoCommand (Server server, ISender sender, ArgumentList argz)
+		void InfoCommand (ISender sender, ArgumentList argz)
 		{
 			Player player = sender as Player;
 			Pair<Action, Protection> pair = new Pair<Action, Protection> (Action.NOTHING, null);
@@ -142,7 +141,7 @@ namespace LWC
 			}
 		}
 
-		void RemoveCommand (Server server, ISender sender, ArgumentList argz)
+		void RemoveCommand (ISender sender, ArgumentList argz)
 		{
 			Player player = sender as Player;
 			Pair<Action, Protection> pair = new Pair<Action, Protection> (Action.NOTHING, null);

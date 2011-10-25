@@ -3,18 +3,17 @@ using System.IO;
 using System.Collections.Generic;
 
 using Terraria_Server;
-using Terraria_Server.Events;
 using Terraria_Server.Commands;
-using Terraria_Server.Plugin;
-using Terraria_Server.Shops;
+using Terraria_Server.Plugins;
 
 using LWC.IO;
 using LWC.Util;
+using Terraria_Server.Logging;
 
 /* LWC-Terraria for TDSM (tdsm.org) */
 namespace LWC
 {
-	public partial class LWCPlugin : Plugin
+	public partial class LWCPlugin : BasePlugin
 	{
 
 		/**
@@ -44,11 +43,6 @@ namespace LWC
 		 */
 		public static string Folder = "";
 
-		public LWCPlugin()
-		{
-			instance = this;
-		}
-
 		/**
 		 * Remove the actions for the player
 		 * 
@@ -59,14 +53,18 @@ namespace LWC
 			Cache.Actions.Remove(player.Name);
 		}
 		
-		public override void Load()
+		public LWCPlugin()
 		{
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.1";
-			TDSMBuild = 35;
-			
+			Version = "1.11";
+			TDSMBuild = 36;
+			instance = this;
+		}
+		
+		protected override void Initialized(object state)
+		{
 			// create the LWC dir if needed
 			Folder = Statics.PluginPath + Path.DirectorySeparatorChar + "LWC/";
 			
@@ -128,17 +126,19 @@ namespace LWC
 				.WithHelpText ("help not written")
 				.Calls (this.RemoveCommand);
 		}
-
-		public override void Enable()
+		
+		protected override void Disposed (object state)
 		{
-			/* Register our events */
-			registerHook(Hooks.PLAYER_CHEST);
-
+			
+		}
+		
+		protected override void Enabled()
+		{
 			enabled = true;
 			Log("VERSION: " + Version);
 		}
 
-		public override void Disable()
+		protected override void Disabled()
 		{
 			Log("Desyncing protections");
 			
@@ -162,10 +162,11 @@ namespace LWC
 			Log("LWC has been disabled!");
 		}
 		
-		public override void onPlayerOpenChest(PlayerChestOpenEvent Event)
+		[Hook(HookOrder.EARLY)]		
+		void onPlayerOpenChest(ref HookContext ctx, ref HookArgs.ChestOpenReceived args)
 		{
-			ISender sender = Event.Sender;
-			int ChestId = Event.ID;
+			ISender sender = ctx.Sender;
+			int ChestId = args.ChestIndex;
 			
 			if(!(sender is Player))
 			{
@@ -214,7 +215,7 @@ namespace LWC
 			// if they can't access it, cancel the event !!
 			if(!CanAccess)
 			{
-				Event.Cancelled = true;
+				ctx.SetResult (HookResult.IGNORE);
 			}
 			
 			// is there an action for this player?
@@ -305,6 +306,41 @@ namespace LWC
 			}
 		}
 		
+		[Hook(HookOrder.EARLY)]		
+		void onPlayerBreakChest(ref HookContext ctx, ref HookArgs.ChestBreakReceived args)
+		{
+			
+			ISender sender = ctx.Sender;
+			int ChestX = args.X;
+			int ChestY = args.Y;
+			
+			if(!(sender is Player))
+			{
+				return;
+			}
+
+            Player player = sender as Player;
+
+			// the location of the chest
+			LocationKey key = new LocationKey(ChestX, ChestY);
+			
+			// see if we have a protection attached to the chest
+			Protection protection = Cache.Protections.Get(key);
+
+			if(protection == null)
+			{
+                player.sendMessage("Chest not protected. Allowing breakage.", 255, 0, 255, 0);
+				return; // chest is not protected so allow it to be broken		
+			}
+			else
+			{
+				//chest has protection, inform user to remove protection first
+				player.sendMessage("Please use /cremove first", 255, 0, 255, 0);
+                //and ignore the break until they do so
+				ctx.SetResult (HookResult.IGNORE);
+			}	
+		}
+		
 		public static LWCPlugin Get()
 		{
 			return instance;
@@ -312,8 +348,7 @@ namespace LWC
 
 		public static void Log(string message)
 		{
-			Program.tConsole.WriteLine("[LWC] " + message);
+			ProgramLog.Plugin.Log("[LWC] " + message);
 		}
-
 	}
 }
