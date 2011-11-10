@@ -15,7 +15,6 @@ namespace LWC
 {
 	public partial class LWCPlugin : BasePlugin
 	{
-
 		/**
 		 * The object that stores most of what we use
 		 */
@@ -306,6 +305,8 @@ namespace LWC
 			}
 		}
 		
+
+        /** This is for the next release -- it needs to be fixed first
 		[Hook(HookOrder.EARLY)]		
 		void onPlayerBreakChest(ref HookContext ctx, ref HookArgs.ChestBreakReceived args)
 		{
@@ -340,6 +341,7 @@ namespace LWC
 				ctx.SetResult (HookResult.IGNORE);
 			}	
 		}
+         * **/
 		
 		public static LWCPlugin Get()
 		{
