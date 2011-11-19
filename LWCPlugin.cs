@@ -9,6 +9,7 @@ using Terraria_Server.Plugins;
 using LWC.IO;
 using LWC.Util;
 using Terraria_Server.Logging;
+using Terraria_Server.Permissions;
 
 /* LWC-Terraria for TDSM (tdsm.org) */
 namespace LWC
@@ -91,38 +92,38 @@ namespace LWC
 			
 			AddCommand ("cpublic")
 				.WithDescription ("command")
-				.WithAccessLevel (AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
+                .WithPermissionNode("lwc.public")
 				.Calls (this.PublicCommand);
 			
 			AddCommand ("cprivate")
 				.WithDescription ("command")
-				.WithAccessLevel (AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
+                .WithPermissionNode("lwc.private")
 				.Calls (this.PrivateCommand);
 			
 			AddCommand ("cpassword")
 				.WithDescription ("command")
-				.WithAccessLevel (AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
+                .WithPermissionNode("lwc.password")
 				.Calls (this.PasswordCommand);
 			
 			AddCommand ("cunlock")
 				.WithDescription ("command")
-				.WithAccessLevel (AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
+                .WithPermissionNode("lwc.unlock")
 				.Calls (this.UnlockCommand);
 			
 			AddCommand ("cinfo")
 				.WithDescription ("command")
-				.WithAccessLevel (AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
+                .WithPermissionNode("lwc.info")
 				.Calls (this.InfoCommand);
 			
 			AddCommand ("cremove")
 				.WithDescription ("command")
-				.WithAccessLevel (AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
+                .WithPermissionNode("lwc.remove")
 				.Calls (this.RemoveCommand);
 		}
 		
@@ -160,8 +161,10 @@ namespace LWC
 			enabled = false;
 			Log("LWC has been disabled!");
 		}
-		
-		[Hook(HookOrder.EARLY)]		
+
+        #region Events
+
+        [Hook(HookOrder.EARLY)]		
 		void onPlayerOpenChest(ref HookContext ctx, ref HookArgs.ChestOpenReceived args)
 		{
 			ISender sender = ctx.Sender;
@@ -304,46 +307,48 @@ namespace LWC
 					break;
 			}
 		}
-		
+
 
         /** This is for the next release -- it needs to be fixed first
-		[Hook(HookOrder.EARLY)]		
-		void onPlayerBreakChest(ref HookContext ctx, ref HookArgs.ChestBreakReceived args)
-		{
+        [Hook(HookOrder.EARLY)]		
+        void onPlayerBreakChest(ref HookContext ctx, ref HookArgs.ChestBreakReceived args)
+        {
 			
-			ISender sender = ctx.Sender;
-			int ChestX = args.X;
-			int ChestY = args.Y;
+            ISender sender = ctx.Sender;
+            int ChestX = args.X;
+            int ChestY = args.Y;
 			
-			if(!(sender is Player))
-			{
-				return;
-			}
+            if(!(sender is Player))
+            {
+                return;
+            }
 
             Player player = sender as Player;
 
-			// the location of the chest
-			LocationKey key = new LocationKey(ChestX, ChestY);
+            // the location of the chest
+            LocationKey key = new LocationKey(ChestX, ChestY);
 			
-			// see if we have a protection attached to the chest
-			Protection protection = Cache.Protections.Get(key);
+            // see if we have a protection attached to the chest
+            Protection protection = Cache.Protections.Get(key);
 
-			if(protection == null)
-			{
+            if(protection == null)
+            {
                 player.sendMessage("Chest not protected. Allowing breakage.", 255, 0, 255, 0);
-				return; // chest is not protected so allow it to be broken		
-			}
-			else
-			{
-				//chest has protection, inform user to remove protection first
-				player.sendMessage("Please use /cremove first", 255, 0, 255, 0);
+                return; // chest is not protected so allow it to be broken		
+            }
+            else
+            {
+                //chest has protection, inform user to remove protection first
+                player.sendMessage("Please use /cremove first", 255, 0, 255, 0);
                 //and ignore the break until they do so
-				ctx.SetResult (HookResult.IGNORE);
-			}	
-		}
+                ctx.SetResult (HookResult.IGNORE);
+            }	
+        }
          * **/
-		
-		public static LWCPlugin Get()
+
+        #endregion
+
+        public static LWCPlugin Get()
 		{
 			return instance;
 		}
