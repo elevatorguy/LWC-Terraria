@@ -92,36 +92,42 @@ namespace LWC
 			
 			AddCommand ("cpublic")
 				.WithDescription ("command")
+                .WithAccessLevel(AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
                 .WithPermissionNode("lwc.public")
 				.Calls (this.PublicCommand);
 			
 			AddCommand ("cprivate")
 				.WithDescription ("command")
+                .WithAccessLevel(AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
                 .WithPermissionNode("lwc.private")
 				.Calls (this.PrivateCommand);
 			
 			AddCommand ("cpassword")
 				.WithDescription ("command")
+                .WithAccessLevel(AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
                 .WithPermissionNode("lwc.password")
 				.Calls (this.PasswordCommand);
 			
 			AddCommand ("cunlock")
 				.WithDescription ("command")
+                .WithAccessLevel(AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
                 .WithPermissionNode("lwc.unlock")
 				.Calls (this.UnlockCommand);
 			
 			AddCommand ("cinfo")
 				.WithDescription ("command")
+                .WithAccessLevel(AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
                 .WithPermissionNode("lwc.info")
 				.Calls (this.InfoCommand);
 			
 			AddCommand ("cremove")
 				.WithDescription ("command")
+                .WithAccessLevel(AccessLevel.PLAYER)
 				.WithHelpText ("help not written")
                 .WithPermissionNode("lwc.remove")
 				.Calls (this.RemoveCommand);
