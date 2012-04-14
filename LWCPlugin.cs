@@ -58,8 +58,8 @@ namespace LWC
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.11";
-			TDSMBuild = 36;
+			Version = "1.11.2";
+			TDSMBuild = 38;
 			instance = this;
 		}
 		
