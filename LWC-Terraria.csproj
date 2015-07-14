@@ -52,9 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Core" />
-    <Reference Include="Terraria_Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TDSM-myfork\Terraria_Server\bin\Debug\Terraria_Server.exe</HintPath>
+    <Reference Include="tdsm">
+      <HintPath>..\TDSM\Binaries\tdsm.exe</HintPath>
+    </Reference>
+    <Reference Include="tdsm.api">
+      <HintPath>..\TDSM\Binaries\tdsm.api.dll</HintPath>
+    </Reference>
+    <Reference Include="tdsm.core">
+      <HintPath>..\TDSM\Binaries\Plugins\tdsm.core.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

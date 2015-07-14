@@ -2,14 +2,15 @@
 using System.IO;
 using System.Collections.Generic;
 
-using Terraria_Server;
-using Terraria_Server.Commands;
-using Terraria_Server.Plugins;
+using tdsm.api;
+using tdsm.api.Command;
+using tdsm.api.Plugin;
 
 using LWC.IO;
 using LWC.Util;
-using Terraria_Server.Logging;
-using Terraria_Server.Permissions;
+using tdsm.api.Logging;
+using tdsm.api.Permissions;
+using Terraria;
 
 /* LWC-Terraria for TDSM (tdsm.org) */
 namespace LWC
@@ -58,15 +59,15 @@ namespace LWC
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.11.2";
-			TDSMBuild = 38;
+			Version = "1.11.3";
+			TDSMBuild = 2;
 			instance = this;
 		}
 		
 		protected override void Initialized(object state)
 		{
 			// create the LWC dir if needed
-			Folder = Statics.PluginPath + Path.DirectorySeparatorChar + "LWC/";
+			Folder = Globals.PluginPath + Path.DirectorySeparatorChar + "LWC/";
 			
 			if(!Directory.Exists(Folder))
 			{
@@ -208,8 +209,8 @@ namespace LWC
 						ResetActions(player);
 						Cache.Actions.Add(player.Name, PassTemp);
 						
-						player.sendMessage("This chest is locked with a password!", 255, 255, 0, 0);
-						player.sendMessage("Type /cunlock <password> to unlock it.", 150, 255, 0, 0);
+						player.SendMessage("This chest is locked with a password!", 255, 255, 0, 0);
+						player.SendMessage("Type /cunlock <password> to unlock it.", 150, 255, 0, 0);
 					}
 				}
 				
@@ -227,14 +228,14 @@ namespace LWC
 			}
 			
 			// is there an action for this player?
-			Pair<Action, Protection> pair = Cache.Actions.Get(sender.Name);
+			Pair<Action, Protection> pair = Cache.Actions.Get(sender.SenderName);
 			
 			if(pair == null)
 			{
 				// check again if they dont have access and pester them
 				if(!CanAccess)
 				{
-					sender.sendMessage("That Chest is locked with a magical spell.", 255, 255, 0, 0);
+					sender.SendMessage("That Chest is locked with a magical spell.", 255, 255, 0, 0);
 				}
 				
 				return;
@@ -250,18 +251,18 @@ namespace LWC
 					
 					if(protection == null)
 					{
-						player.sendMessage("That chest is not protected!", 255, 255, 0, 0);
+						player.SendMessage("That chest is not protected!", 255, 255, 0, 0);
 					} else
 					{
-						player.sendMessage("Owner: " + protection.Owner, 255, 255, 0, 0);
-						player.sendMessage("Type: " + protection.TypeToString(), 255, 255, 0, 0);
+						player.SendMessage("Owner: " + protection.Owner, 255, 255, 0, 0);
+						player.SendMessage("Type: " + protection.TypeToString(), 255, 255, 0, 0);
 						
 						if(CanAccess)
 						{
-							player.sendMessage("Can access: Yes", 255, 0, 255, 0);
+							player.SendMessage("Can access: Yes", 255, 0, 255, 0);
 						} else
 						{
-							player.sendMessage("Can access: No", 255, 255, 0, 0);
+							player.SendMessage("Can access: No", 255, 255, 0, 0);
 						}
 					}
 					
@@ -271,7 +272,7 @@ namespace LWC
 				case Action.CREATE:
 					if(protection != null)
 					{
-						player.sendMessage("That chest has already been registered!", 255, 255, 0, 0);
+						player.SendMessage("That chest has already been registered!", 255, 255, 0, 0);
 						break;
 					}
 					
@@ -287,21 +288,21 @@ namespace LWC
 					// remove the action
 					Cache.Actions.Remove(player.Name);
 					
-					player.sendMessage("Registered a " + Temp.TypeToString() + " Chest successfully!", 255, 0, 255, 0);
-					player.sendMessage("Note: Currently, empty chests can be destroyed !!", 255, 255, 0, 255);
-					player.sendMessage("Ensure 1 item stays in it so the chest itself cannot be stolen.", 255, 255, 0, 255);
+					player.SendMessage("Registered a " + Temp.TypeToString() + " Chest successfully!", 255, 0, 255, 0);
+					player.SendMessage("Note: Currently, empty chests can be destroyed !!", 255, 255, 0, 255);
+					player.SendMessage("Ensure 1 item stays in it so the chest itself cannot be stolen.", 255, 255, 0, 255);
 					break;
 					
 				case Action.REMOVE:
 					if(protection == null)
 					{
-						player.sendMessage("Please open a protected chest!", 255, 255, 0, 0);
+						player.SendMessage("Please open a protected chest!", 255, 255, 0, 0);
 						return;
 					}
 					
 					if(!protection.IsOwner(player))
 					{
-						player.sendMessage("You are not the owner of that chest!", 255, 255, 0, 0);
+						player.SendMessage("You are not the owner of that chest!", 255, 255, 0, 0);
 						return;
 					}
 					
@@ -309,7 +310,7 @@ namespace LWC
 					protection.Remove();
 					Cache.Actions.Remove(player.Name);
 					
-					player.sendMessage("Protection removed!", 255, 255, 0, 255);
+					player.SendMessage("Protection removed!", 255, 255, 0, 255);
 					break;
 			}
 		}

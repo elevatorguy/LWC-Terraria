@@ -1,7 +1,8 @@
-using Terraria_Server;
-using Terraria_Server.Plugins;
-using Terraria_Server.Commands;
+using tdsm;
+using tdsm.api.Plugin;
+using tdsm.api.Command;
 using LWC.Util;
+using Terraria;
 
 namespace LWC
 {
@@ -19,7 +20,7 @@ namespace LWC
 				pair.First = Action.CREATE;
 				pair.Second = temp;
 					
-				player.sendMessage ("Open the chest to protect it!", 255, 0, 255, 0);
+				player.SendMessage ("Open the chest to protect it!", 255, 0, 255, 0);
 			
 			// cache the action if it's not null!
 			if (pair.First != Action.NOTHING) {
@@ -40,7 +41,7 @@ namespace LWC
 				pair.First = Action.CREATE;
 				pair.Second = temp;
 					
-				player.sendMessage ("Open the chest to protect it!", 255, 0, 255, 0);
+				player.SendMessage ("Open the chest to protect it!", 255, 0, 255, 0);
 		
 			// cache the action if it's not null!
 			if (pair.First != Action.NOTHING) {
@@ -56,7 +57,7 @@ namespace LWC
 				Pair<Action, Protection> pair = new Pair<Action, Protection> (Action.NOTHING, null);
 			
 				if (args.Count != 1) {
-					player.sendMessage ("Usage: /cpassword <password>", 255, 255, 0, 0);
+					player.SendMessage ("Usage: /cpassword <password>", 255, 255, 0, 0);
 					return;
 				}
 				
@@ -75,8 +76,8 @@ namespace LWC
 				pair.First = Action.CREATE;
 				pair.Second = temp;
 					
-				player.sendMessage ("Password: " + new string (pass), 255, 255, 0, 0);
-				player.sendMessage ("Open the chest to protect it!", 255, 0, 255, 0);
+				player.SendMessage ("Password: " + new string (pass), 255, 255, 0, 0);
+				player.SendMessage ("Open the chest to protect it!", 255, 0, 255, 0);
 		
 			// cache the action if it's not null!
 			if (pair.First != Action.NOTHING) {
@@ -92,7 +93,7 @@ namespace LWC
 				Pair<Action, Protection> pair = new Pair<Action, Protection> (Action.NOTHING, null);
 			
 				if (args.Count != 1) {
-					player.sendMessage ("Usage: /cunlock <password>", 255, 255, 0, 0);
+					player.SendMessage ("Usage: /cunlock <password>", 255, 255, 0, 0);
 					return;
 				}
 					
@@ -111,12 +112,12 @@ namespace LWC
 						ResetActions (player);
 							
 						// TODO: remove them from access when they log out
-						player.sendMessage ("Password accepted!", 255, 0, 255, 0);
+						player.SendMessage ("Password accepted!", 255, 0, 255, 0);
 					} else {
-						player.sendMessage ("Invalid password!", 255, 255, 0, 0);
+						player.SendMessage ("Invalid password!", 255, 255, 0, 0);
 					}
 				} else {
-					player.sendMessage ("You need to open a password-protected chest to do that!", 255, 255, 0, 0);
+					player.SendMessage ("You need to open a password-protected chest to do that!", 255, 255, 0, 0);
 				}
 		
 			// cache the action if it's not null!
@@ -132,7 +133,7 @@ namespace LWC
 			Pair<Action, Protection> pair = new Pair<Action, Protection> (Action.NOTHING, null);
 			
 			pair.First = Action.INFO;
-			player.sendMessage ("Open a chest to view information about it.", 255, 0, 255, 0);
+			player.SendMessage ("Open a chest to view information about it.", 255, 0, 255, 0);
 			
 			// cache the action if it's not null!
 			if (pair.First != Action.NOTHING) {
@@ -147,7 +148,7 @@ namespace LWC
 			Pair<Action, Protection> pair = new Pair<Action, Protection> (Action.NOTHING, null);
 			
 			pair.First = Action.REMOVE;
-			player.sendMessage ("Open a chest to remove a protection you own.", 255, 0, 255, 0);
+			player.SendMessage ("Open a chest to remove a protection you own.", 255, 0, 255, 0);
 		
 			// cache the action if it's not null!
 			if (pair.First != Action.NOTHING) {
