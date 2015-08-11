@@ -1,6 +1,6 @@
-using tdsm;
-using tdsm.api.Plugin;
-using tdsm.api.Command;
+using TDSM;
+using TDSM.API.Plugin;
+using TDSM.API.Command;
 using LWC.Util;
 using Terraria;
 

@@ -2,14 +2,14 @@
 using System.IO;
 using System.Collections.Generic;
 
-using tdsm.api;
-using tdsm.api.Command;
-using tdsm.api.Plugin;
+using TDSM.API;
+using TDSM.API.Command;
+using TDSM.API.Plugin;
 
 using LWC.IO;
 using LWC.Util;
-using tdsm.api.Logging;
-using tdsm.api.Permissions;
+using TDSM.API.Logging;
+using TDSM.API.Permissions;
 using Terraria;
 
 /* LWC-Terraria for TDSM (tdsm.org) */
@@ -59,8 +59,8 @@ namespace LWC
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.11.3";
-			TDSMBuild = 2;
+			Version = "1.11.4";
+			TDSMBuild = 4;
 			instance = this;
 		}
 		
