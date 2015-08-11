@@ -62,4 +62,7 @@
       <HintPath>..\TDSM\Binaries\Plugins\tdsm.core.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy LWC.* ..\..\..\TDSM\Binaries\Plugins</PostBuildEvent>
+  </PropertyGroup>
 </Project>
