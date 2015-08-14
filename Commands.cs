@@ -6,7 +6,7 @@ using Terraria;
 
 namespace LWC
 {
-	public partial class LWCPlugin : BasePlugin
+	public partial class LWCPlugin
 	{
 		void PublicCommand (ISender sender, ArgumentList argz)
 		{
