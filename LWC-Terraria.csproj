@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <RootNamespace>LWCTerraria</RootNamespace>
     <AssemblyName>LWC</AssemblyName>
     <ReleaseVersion>1.1</ReleaseVersion>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -55,15 +55,15 @@
     <None Include="IO\FlatFileFormat.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="OTA">
+      <HintPath>..\TDSM\Binaries\OTA.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="tdsm">
-      <HintPath>..\TDSM\Binaries\tdsm.exe</HintPath>
+    <Reference Include="TDSM.Core">
+      <HintPath>..\TDSM\Binaries\Plugins\TDSM.Core.dll</HintPath>
     </Reference>
-    <Reference Include="tdsm.api">
-      <HintPath>..\TDSM\Binaries\tdsm.api.dll</HintPath>
-    </Reference>
-    <Reference Include="tdsm.core">
-      <HintPath>..\TDSM\Binaries\Plugins\tdsm.core.dll</HintPath>
+    <Reference Include="TerrariaServer">
+      <HintPath>..\TDSM\Binaries\TerrariaServer.exe</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup>

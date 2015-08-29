@@ -1,12 +1,10 @@
-using TDSM;
-using TDSM.API.Plugin;
-using TDSM.API.Command;
+using OTA.Command;
 using LWC.Util;
 using Terraria;
 
 namespace LWC
 {
-	public partial class LWCPlugin
+    public partial class LWCPlugin
 	{
 		void PublicCommand (ISender sender, ArgumentList argz)
 		{

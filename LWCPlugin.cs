@@ -1,21 +1,18 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 
-using TDSM.API;
-using TDSM.API.Command;
-using TDSM.API.Plugin;
+using OTA;
+using OTA.Command;
+using OTA.Plugin;
 
 using LWC.IO;
-using LWC.Util;
-using TDSM.API.Logging;
-using TDSM.API.Permissions;
+using OTA.Logging;
 using Terraria;
 
 /* LWC-Terraria for TDSM (tdsm.org) */
 namespace LWC
 {
-	public partial class LWCPlugin : BasePlugin
+    public partial class LWCPlugin : BasePlugin
 	{
 		/**
 		 * The object that stores most of what we use
@@ -59,7 +56,7 @@ namespace LWC
 			Name = "LWC";
 			Description = "Chest protection mod";
 			Author = "Hidendra";
-			Version = "1.11.5";
+			Version = "1.11.6";
 			TDSMBuild = 5;
 			instance = this;
 		}
