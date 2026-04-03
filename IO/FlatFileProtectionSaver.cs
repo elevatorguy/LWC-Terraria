@@ -14,8 +14,8 @@ namespace LWC.IO
 				return;
 			}
 			
-			string database = LWCPlugin.Folder + "lwc.db";
-			string backup = LWCPlugin.Folder + "lwc.db.bak";
+			string database = Path.Combine(LWCPlugin.Folder, "lwc.db");
+			string backup = Path.Combine(LWCPlugin.Folder, "lwc.db.bak");
 			
 			// ensure a dirty backup does not exist
 			if(File.Exists(backup))
