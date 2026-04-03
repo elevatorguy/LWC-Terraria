@@ -16,7 +16,7 @@ namespace LWC
         public override string Name => "LWC";
         public override string Author => "Hidendra";
         public override string Description => "Chest protection mod";
-        public override Version Version => new Version(1, 11, 6);
+        public override Version Version => new Version(1, 11, 7);
 
         public Store Cache { get; private set; }
         
