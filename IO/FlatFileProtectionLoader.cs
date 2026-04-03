@@ -12,7 +12,7 @@ namespace LWC.IO
 		 */
 		public Protection[] LoadProtections()
 		{
-			string database = LWCPlugin.Folder + "lwc.db";
+			string database = Path.Combine(LWCPlugin.Folder, "lwc.db");
 			
 			if(!File.Exists(database))
 			{
@@ -68,6 +68,7 @@ namespace LWC.IO
 					protection.Valid = true;
 					
 					// good!
+					protections.Add(protection);
 					LWCPlugin.Get().Cache.Protections.Add(new LocationKey(X, Y), protection);				}
 			}
 			
