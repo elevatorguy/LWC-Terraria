@@ -1,21 +1,19 @@
-﻿using System;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace LWC.Util
 {
-	public class SHA1
+	public class SHA1Hash
 	{
 		
 		public static string Hash(string input)
 		{
 			byte[] buffer = Encoding.ASCII.GetBytes(input);
 			
-			SHA1CryptoServiceProvider cryptoTransformSHA1 =
-				new SHA1CryptoServiceProvider();
-			
+			using var sha1 = System.Security.Cryptography.SHA1.Create();
 			string hash = BitConverter.ToString(
-				cryptoTransformSHA1.ComputeHash(buffer)).Replace("-", "");
+				sha1.ComputeHash(buffer)).Replace("-", "");
 
 			return hash;
 		}
